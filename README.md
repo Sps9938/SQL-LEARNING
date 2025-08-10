@@ -25,11 +25,10 @@ A complete beginner-friendly guide to install MySQL, use MySQL Workbench, run yo
 ```bash
 brew install mysql
 brew services start mysql
-
 ```
-## 2️⃣ Open MySQL CLI
 
+### 2️⃣ Open MySQL CLI
+```
 1. **mysql -u root -p**
 2. **Enter password:____**
-
-```
+---
