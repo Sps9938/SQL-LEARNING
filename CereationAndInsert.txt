@@ -1,0 +1,22 @@
+CREATE DATABASE record;  //Creates a new database named record
+
+USE record;  //Switches to the record database so that following queries affect it
+/*
+    Creates a table workers with:
+
+    id → INT and the primary key (must be unique, not null).
+
+    name → text up to 256 characters.
+
+*/
+
+CREATE TABLE workers(
+    id INT PRIMARY KEY,
+    name VARCHAR(256)
+);
+
+//Adds one row:
+
+INSERT INTO workers VALUES (1,'satya');
+
+SELECT * FROM workers;
