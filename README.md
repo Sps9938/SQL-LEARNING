@@ -29,6 +29,7 @@ brew services start mysql
 
 ### 2️⃣ Open MySQL CLI
 ```
-1. **mysql -u root -p**
-2. **Enter password:____**
----
+mysql -u root -p
+Enter password:____
+
+```
