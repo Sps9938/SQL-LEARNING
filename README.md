@@ -595,5 +595,5 @@ DROP VIEW IF EXISTS custom_view;
 - **Joins** → Combine tables (`INNER`, `LEFT`, `RIGHT`, `CROSS`)
 - **Set Operations** → `UNION`, `INTERSECT`, `MINUS`
 - **Subqueries** → Nested queries
-- **Views** → Virtual tables
+- **Views** → Virtual Tables
 
