@@ -95,14 +95,14 @@ SELECT DEPARTMENT, SUM(SALARY) FROM Worker GROUP BY DEPARTMENT;
 -- HAVING (same as WHERE but not equal) used when filtering require
 -- difference between WHERE AND HAVING(WHERE doesn't allow aggregation but allow in case of HAVING)
 
-SELECT DEPARTMENT, COUNT(DEPARTMENT) FROM Worker GROUP BY DEPARTMENT HAVING COUNT(DEPARTMENT)>2;
+SELECT DEPARTMENT, COUNT(DEPARTMENT) FROM Worker GROUP BY DEPARTMENT HAVING COUNT(DEPARTMENT) >= 2;
 
 
 
+select Department from Worker group by department;
 
-
-
-
+select substring(First_Name, 1, 3) First_Name from Worker;
+select instr(First_Name, 'a') As Pos From Worker where First_Name = 'Amitabh';
 
 
 
