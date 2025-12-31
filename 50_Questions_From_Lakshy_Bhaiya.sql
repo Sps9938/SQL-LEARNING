@@ -124,3 +124,130 @@ select * from worker w1 where 1 < (
 	select count(salary) from worker w2
     where w2.salary = w1.salary 
 );
+
+-- write an sql query to show nth (n=6) highest salary from a table
+select distinct(salary) from worker order by salary DESC LIMIT 5, 1;
+
+-- write an sql query to show nth (n=6) highest salary from a table without using LIMIT;
+select * from worker w1 where 6 = (
+	select count(distinct(salary)) from worker w2
+    where w2.salary >= w1.salary
+);
+
+-- write an sql query to fetch the list of employees with the same salary
+select w1. * from worker w1, worker w2 where w1.salary = w2.salary AND w1.worker_id <> w2.worker_id;
+
+select * from worker w1 where 1 < (
+	select count(*) from worker w2
+    where w1.salary = w2.salary
+);
+
+
+-- write  an sql query to show the 2nd highest salary from a table
+select distinct(w.salary) from worker w order by salary DESC LIMIT 1, 1;
+
+select * from worker w1 where 2 = (
+	select count(distinct(salary)) from worker w2
+    where w2.salary >= w1.salary
+);
+
+-- write  an sql query to show the 3rd highest salary from a table
+select * from worker w1 where 3 = (
+	select count(distinct(salary)) from worker w2
+    where w2.salary >= w1.salary
+);
+
+select max(salary) 
+from worker
+where salary NOT IN (
+(
+	select max(salary)
+    from worker 
+),
+(
+	select max(salary) 
+    from worker
+	where salary not in (
+		select max(salary) 
+        from worker
+	)
+)
+);
+
+-- write an sql query to show one row twice in results from a table
+select * from worker
+UNION ALL
+select * from worker order by worker_id;
+
+-- write an sql query to show worker id who does not get bonus
+select w.worker_id as worker_id from worker as w
+left join
+bonus as b
+on w.worker_id = b.worker_ref_id where b.bonus_amount is null;
+
+select worker_id from worker where worker_id not in (
+	select worker_ref_id from bonus
+);
+
+-- write an sql query to show first 50% records from a table
+ select * from worker where worker_id <= (select count(worker_id)/2 from worker);
+
+-- write an sql query to fetch departments that have less than 4 people in it
+select department, count(department) as no_of_dept from worker group by department having no_of_dept < 4;
+
+
+-- write an sql query to show all department along witb the number of people in there
+select department, count(department) as no_of_people from worker group by department;
+
+-- write an sql query to show last record from a table
+select * from worker where worker_id = (
+	select MAX(worker_id) from worker
+);
+
+
+-- write an sql query to fetch first row of a table
+-- select * from worker where worker_id = 1;
+select * from worker where worker_id = (
+	select MIN(worker_id) from worker
+);
+
+-- write an sql query to fetch the last five records from a table
+select * from worker order by worker_id DESC LIMIT 5;
+
+select * from worker where worker_id >= (select max(worker_id) from worker)-(5-1);
+
+-- write an sql query to print the name of employees having the highest salary to each department
+-- select max(salary), department from worker group by department;
+select concat(first_name, ' ', last_name) as worker_name, Department from worker w1 where salary = (
+	select max(salary) from worker w2 where w1.department = w2.department
+);
+
+select concat(w1.first_name, ' ', w1.last_name) as worker_name, w1.department from 
+(select max(salary) as maxSal, department from worker group by department) temp
+inner join
+worker w1
+on w1.department = temp.department and temp.maxSal = w1.salary;
+
+
+select max(salary) as maxSal from worker group by department order by maxSal DESC limit 2; 
+
+select distinct salary from worker w1 where 3 >=
+	(select count(distinct salary) from worker w2 where w2.salary >= w1.salary) order by w1.salary desc;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
