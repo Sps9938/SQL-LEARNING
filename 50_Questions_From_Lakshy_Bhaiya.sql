@@ -228,7 +228,7 @@ inner join
 worker w1
 on w1.department = temp.department and temp.maxSal = w1.salary;
 
-
+-- write an sql query to fetch three max salaries from  a table using co-related sub-query 
 select max(salary) as maxSal from worker group by department order by maxSal DESC limit 2; 
 
 select distinct salary from worker w1 where 3 >=
