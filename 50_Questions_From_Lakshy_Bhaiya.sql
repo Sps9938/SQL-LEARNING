@@ -234,20 +234,98 @@ select max(salary) as maxSal from worker group by department order by maxSal DES
 select distinct salary from worker w1 where 3 >=
 	(select count(distinct salary) from worker w2 where w2.salary >= w1.salary) order by w1.salary desc;
 
+-- write an sql query to fetch three min salaries from a table using co-related sub-query
+
+select distinct salary from worker order by salary limit 3; 
+
+-- 3rd min salary from a table
+select * from worker w1 where 3 = (
+	select count(distinct salary) from worker w2
+    where w2.salary <= w1.salary
+); 
+
+
+select distinct salary from worker w1 where 3 >= (
+	select count(distinct salary) from worker w2
+    where w2.salary <= w1.salary
+) order by w1.salary;
+
+select * from worker order by salary;
+
+
+-- write an sql query to fetch nth max salaries from a table 
+select distinct salary from worker w1 where n >=
+	(select count(distinct salary) from worker w2 where w2.salary >= w1.salary) order by w1.salary desc;
+
+-- write an sql query to fetch departments along with the total salaries paid each of them
+select department, sum(salary) as total_sal from worker group by department order by total_sal desc;
+
+-- write an sql query to fetch the names of workers who earns the highest salary
+select concat(first_name, ' ', last_name) as Worker_Name from worker where salary = (
+	select max(salary) from worker
+); 
 
 
 
 
+-- revision sub-query
+
+select distinct salary from worker order by salary desc limit 4, 1;
+
+select * from worker w1 where 5 = (
+	select  count(distinct salary) from worker w2
+    where w2.salary >= w1.salary
+);
+
+-- same salary
+
+select * from worker w1 where salary = (
+	select distinct salary from worker w2
+    where w1.salary = w2.salary and w2.worker_id <> w1.worker_id
+);
+
+
+-- without co-related sub-query
+select max(salary) from worker where salary not in (
+	select max(salary) from worker
+);
+
+select * from worker w1 where 2 = (
+	select count(distinct salary) from worker w2
+    where w2.salary >= w1.salary 
+);
+
+
+-- show 1st 50% record from a table
+select * from worker where worker_id <= (select count(worker_id)/2 from worker) order by worker_id;
+
+select * from worker where worker_id = (
+	select min(worker_id) from worker
+);
+
+
+select * from worker where worker_id >= (select max(worker_id) from worker)-(5-1);
+
+
+select concat(w.first_name, ' ', w.last_name) as name, w.department from (select max(salary) as maxSal, department from worker group by department) temp
+inner join
+worker w 
+on w.department = temp.department and temp.maxSal = w.salary;
 
 
 
+select concat(w1.first_name, ' ', w1.last_name) as name, w1.Department from worker w1 where salary = (
+	select max(salary) from worker w2
+    where w1.department = w2.department
+);
+
+select max(salary) from worker;
 
 
-
-
-
-
-
+-- three max salaries from a table using co-related subquery
+select distinct salary from worker w1 where 3 >= (
+	select  count(distinct salary) from worker w2
+    where w2.salary >= w1.salary) order by w1.salary desc;
 
 
 
